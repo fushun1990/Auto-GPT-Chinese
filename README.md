@@ -7,23 +7,23 @@
 
 # 中文响应的效果
 ## 设置名字角色目标
-![](images/1.png)
+![](https://gitee.com/fushun1990/auto-gpt-chinese/raw/stable-zh/images/1.png)
 ## 第一次ChatGPT的返回
-![](images/2.png)
-![](images/3.png)
+![](https://gitee.com/fushun1990/auto-gpt-chinese/raw/stable-zh/images/2.png)
+![](https://gitee.com/fushun1990/auto-gpt-chinese/raw/stable-zh/images/3.png)
 ## chatGPT返回，下一个命令使用Google搜索
-![](images/4.png)
-![](images/5.png)
+![](https://gitee.com/fushun1990/auto-gpt-chinese/raw/stable-zh/images/4.png)
+![](https://gitee.com/fushun1990/auto-gpt-chinese/raw/stable-zh/images/5.png)
 ## Google搜索返回的内容
-![](images/6.png)
+![](https://gitee.com/fushun1990/auto-gpt-chinese/raw/stable-zh/images/6.png)
 
 # 完整的返回内容
 我特意保存了一份所有的日志记录，完整的内容请查看[chatGPTResponse2.text](chatGPTResponse2.text)文件。
 
 
-# 不要魔法使用ChatGPT 
-![](images/mp.jpeg)
+# 不要魔法使用ChatGPT
+![](https://gitee.com/fushun1990/auto-gpt-chinese/raw/stable-zh/images/mp.jpeg)
 
 # 加群讨论
 
-![](images/img.png)
+![](https://gitee.com/fushun1990/auto-gpt-chinese/raw/stable-zh/images/img.png)
