@@ -28,11 +28,11 @@ def generate_context(prompt, relevant_memory, full_message_history, model):
     current_context = [
         create_chat_message("system", prompt),
         create_chat_message(
-            "system", f"The current time and date is {time.strftime('%c')}"
+            "system", f"当前的时间和日期是 {time.strftime('%Y-%m-%d %H:%M:%S')}"
         ),
         create_chat_message(
             "system",
-            f"This reminds you of these events from your past:\n{relevant_memory}\n\n",
+            f"这让你想起了你过去经历过的那些事件:\n{relevant_memory}\n\n",
         ),
     ]
 
@@ -77,6 +77,7 @@ def chat_with_ai(
             # Reserve 1000 tokens for the response
 
             logger.debug(f"Token limit: {token_limit}")
+            # logger.debug(f"prompt: {prompt}")
             send_token_limit = token_limit - 1000
 
             relevant_memory = (

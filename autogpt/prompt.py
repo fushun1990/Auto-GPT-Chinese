@@ -15,63 +15,61 @@ def get_prompt() -> str:
 
     # Add constraints to the PromptGenerator object
     prompt_generator.add_constraint(
-        "~4000 word limit for short term memory. Your short term memory is short, so"
-        " immediately save important information to files."
+        "短期记忆的限制是4000个字符串。你的短期记忆很短暂，因此应该立即将重要信息保存到文件中。"
     )
     prompt_generator.add_constraint(
-        "If you are unsure how you previously did something or want to recall past"
-        " events, thinking about similar events will help you remember."
+        "如果你不确定之前是如何做某件事或者想要回忆起过去的事件，想到类似的事件会有助于你记忆。"
     )
     prompt_generator.add_constraint("No user assistance")
     prompt_generator.add_constraint(
-        'Exclusively use the commands listed in double quotes e.g. "command name"'
+        '只使用双引号中列出的命令，例如：“命令名称”'
     )
 
     # Define the command list
     commands = [
-        ("Google Search", "google", {"input": "<search>"}),
+        ("谷歌搜索", "google", {"input": "<search>"}),
         (
             "Browse Website",
             "browse_website",
             {"url": "<url>", "question": "<what_you_want_to_find_on_website>"},
         ),
         (
-            "Start GPT Agent",
+            "启动 GPT 代理",
             "start_agent",
             {"name": "<name>", "task": "<short_task_desc>", "prompt": "<prompt>"},
         ),
         (
-            "Message GPT Agent",
+            "向 GPT 代理发送消息",
             "message_agent",
             {"key": "<key>", "message": "<message>"},
         ),
-        ("List GPT Agents", "list_agents", {}),
-        ("Delete GPT Agent", "delete_agent", {"key": "<key>"}),
-        ("Write to file", "write_to_file", {"file": "<file>", "text": "<text>"}),
-        ("Read file", "read_file", {"file": "<file>"}),
-        ("Append to file", "append_to_file", {"file": "<file>", "text": "<text>"}),
-        ("Delete file", "delete_file", {"file": "<file>"}),
-        ("Search Files", "search_files", {"directory": "<directory>"}),
-        ("Evaluate Code", "evaluate_code", {"code": "<full_code_string>"}),
+        ("列出 GPT 代理列表", "list_agents", {}),
+        ("删除 GPT 代理", "delete_agent", {"key": "<key>"}),
+        ("写入文件", "write_to_file", {"file": "<file>", "text": "<text>"}),
+        ("读取文件", "read_file", {"file": "<file>"}),
+        ("追加到文件", "append_to_file", {"file": "<file>", "text": "<text>"}),
+        ("删除文件", "delete_file", {"file": "<file>"}),
+        ("搜索文件", "search_files", {"directory": "<directory>"}),
+        ("评估代码", "evaluate_code", {"code": "<full_code_string>"}),
         (
-            "Get Improved Code",
+            "获取改进后的代码。",
             "improve_code",
             {"suggestions": "<list_of_suggestions>", "code": "<full_code_string>"},
         ),
         (
-            "Write Tests",
+            "编写测试",
             "write_tests",
             {"code": "<full_code_string>", "focus": "<list_of_focus_areas>"},
         ),
-        ("Execute Python File", "execute_python_file", {"file": "<file>"}),
+        ("执行 Python 文件", "execute_python_file", {"file": "<file>"}),
         (
-            "Execute Shell Command, non-interactive commands only",
+            "执行 Shell 命令，仅限非交互式命令。",
             "execute_shell",
             {"command_line": "<command_line>"},
         ),
-        ("Task Complete (Shutdown)", "task_complete", {"reason": "<reason>"}),
-        ("Generate Image", "generate_image", {"prompt": "<prompt>"}),
-        ("Do Nothing", "do_nothing", {}),
+        ("任务完成（关闭）", "task_complete", {"reason": "<reason>"}),
+        ("生成图像", "generate_image", {"prompt": "<prompt>"}),
+        ("什么也不做", "do_nothing", {}),
     ]
 
     # Add commands to the PromptGenerator object
@@ -80,28 +78,26 @@ def get_prompt() -> str:
 
     # Add resources to the PromptGenerator object
     prompt_generator.add_resource(
-        "Internet access for searches and information gathering."
+        "用于搜索和信息收集的互联网访问。"
     )
-    prompt_generator.add_resource("Long Term memory management.")
+    prompt_generator.add_resource("长期内存管理。")
     prompt_generator.add_resource(
-        "GPT-3.5 powered Agents for delegation of simple tasks."
+        "由 GPT-3.5 驱动的代理，用于委派简单任务。"
     )
-    prompt_generator.add_resource("File output.")
+    prompt_generator.add_resource("文件输出。")
 
     # Add performance evaluations to the PromptGenerator object
     prompt_generator.add_performance_evaluation(
-        "Continuously review and analyze your actions to ensure you are performing to"
-        " the best of your abilities."
+        "持续审查和分析你的行动，以确保你发挥出最佳水平。"
     )
     prompt_generator.add_performance_evaluation(
-        "Constructively self-criticize your big-picture behavior constantly."
+        "不断地对自己的宏观行为进行建设性自我批评。"
     )
     prompt_generator.add_performance_evaluation(
-        "Reflect on past decisions and strategies to refine your approach."
+        "反思过去的决策和策略，以完善你的方法。"
     )
     prompt_generator.add_performance_evaluation(
-        "Every command has a cost, so be smart and efficient. Aim to complete tasks in"
-        " the least number of steps."
+        "每个命令都有代价，所以要聪明高效。旨在以最少的步骤完成任务。"
     )
 
     # Generate the prompt string

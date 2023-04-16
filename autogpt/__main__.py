@@ -162,17 +162,17 @@ def construct_prompt():
         logger.typewriter_log("Goals:", Fore.GREEN, f"{config.ai_goals}")
     elif config.ai_name:
         logger.typewriter_log(
-            "Welcome back! ",
+            "欢迎回来！ ",
             Fore.GREEN,
-            f"Would you like me to return to being {config.ai_name}?",
+            f"您希望继续使用【 {config.ai_name}】?",
             speak_text=True,
         )
         should_continue = utils.clean_input(
-            f"""Continue with the last settings?
-Name:  {config.ai_name}
-Role:  {config.ai_role}
-Goals: {config.ai_goals}
-Continue (y/n): """
+            f"""继续使用上次的设置吗?
+名字:  {config.ai_name}
+角色:  {config.ai_role}
+目标: {config.ai_goals}
+继续 (y/n): """
         )
         if should_continue.lower() == "n":
             config = AIConfig()
@@ -378,8 +378,7 @@ def main():
     next_action_count = 0
     # Make a constant:
     user_input = (
-        "Determine which next command to use, and respond using the"
-        " format specified above:"
+        "确定使用哪个下一个命令，并使用上面指定的格式进行回应:"
     )
     # Initialize memory and make sure it is empty.
     # this is particularly important for indexing and referencing pinecone memory
@@ -454,6 +453,7 @@ class Agent:
                 )  # TODO: This hardcodes the model to use GPT3.5. Make this an argument
 
             # Print Assistant thoughts
+            logger.debug(f"assistant_reply: {assistant_reply}")
             print_assistant_thoughts(assistant_reply)
 
             # Get command name and arguments

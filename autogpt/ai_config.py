@@ -97,15 +97,13 @@ class AIConfig:
         """
 
         prompt_start = (
-            "Your decisions must always be made independently without"
-            "seeking user assistance. Play to your strengths as an LLM and pursue"
-            " simple strategies with no legal complications."
+            "你的决策必须始终独立做出，不寻求用户的帮助。发挥你作为 LLM 的优势，追求简单策略，并尽量避免复杂化。"
             ""
         )
 
         # Construct full prompt
         full_prompt = (
-            f"You are {self.ai_name}, {self.ai_role}\n{prompt_start}\n\nGOALS:\n\n"
+            f"你是 {self.ai_name}, {self.ai_role}\n{prompt_start}\n\n目标:\n\n"
         )
         for i, goal in enumerate(self.ai_goals):
             full_prompt += f"{i+1}. {goal}\n"
