@@ -32,16 +32,19 @@ def get_prompt() -> str:
     prompt_generator.add_constraint(
         "如果你不确定之前是如何做某件事或者想要回忆起过去的事件，想到类似的事件会有助于你记忆。"
     )
-    prompt_generator.add_constraint("No user assistance")
+    prompt_generator.add_constraint("没有用户帮助")
     prompt_generator.add_constraint(
-        '只使用双引号中列出的命令，例如：“命令名称”'
+        '不要回复除json以外的任何字符串'
+    )
+    prompt_generator.add_constraint(
+        '只使用双引号中列出的命令，例如："命令名称"'
     )
 
     # Define the command list
     commands = [
         ("谷歌搜索", "google", {"input": "<search>"}),
         (
-            "Browse Website",
+            "浏览网站",
             "browse_website",
             {"url": "<url>", "question": "<what_you_want_to_find_on_website>"},
         ),
@@ -58,7 +61,7 @@ def get_prompt() -> str:
         ("列出 GPT 代理列表", "list_agents", {}),
         ("删除 GPT 代理", "delete_agent", {"key": "<key>"}),
         (
-            "Clone Repository",
+            "克隆代码库",
             "clone_repository",
             {"repository_url": "<url>", "clone_path": "<directory>"},
         ),
@@ -80,14 +83,14 @@ def get_prompt() -> str:
         ),
         ("执行 Python 文件", "execute_python_file", {"file": "<file>"}),
         ("生成图像", "generate_image", {"prompt": "<prompt>"}),
-        ("Send Tweet", "send_tweet", {"text": "<text>"}),
+        ("发送推文", "send_tweet", {"text": "<text>"}),
     ]
 
     # Only add the audio to text command if the model is specified
     if cfg.huggingface_audio_to_text_model:
         commands.append(
             (
-                "Convert Audio to text",
+                "将音频转换为文本",
                 "read_audio_from_file",
                 {"file": "<file>"}
             ),
@@ -97,7 +100,7 @@ def get_prompt() -> str:
     if cfg.execute_local_commands:
         commands.append(
             (
-                "Execute Shell Command, non-interactive commands only",
+                "执行 Shell 命令，仅限非交互式命令。",
                 "execute_shell",
                 {"command_line": "<command_line>"},
             ),
@@ -105,10 +108,10 @@ def get_prompt() -> str:
 
     # Add these command last.
     commands.append(
-        ("Do Nothing", "do_nothing", {}),
+        ("什么都不做", "do_nothing", {}),
     )
     commands.append(
-        ("Task Complete (Shutdown)", "task_complete", {"reason": "<reason>"}),
+        ("任务完成（关闭）", "task_complete", {"reason": "<reason>"}),
     )
 
     # Add commands to the PromptGenerator object
@@ -151,22 +154,22 @@ def construct_prompt() -> str:
     """
     config = AIConfig.load(CFG.ai_settings_file)
     if CFG.skip_reprompt and config.ai_name:
-        logger.typewriter_log("Name :", Fore.GREEN, config.ai_name)
-        logger.typewriter_log("Role :", Fore.GREEN, config.ai_role)
-        logger.typewriter_log("Goals:", Fore.GREEN, f"{config.ai_goals}")
+        logger.typewriter_log("名字 :", Fore.GREEN, config.ai_name)
+        logger.typewriter_log("角色 :", Fore.GREEN, config.ai_role)
+        logger.typewriter_log("目标:", Fore.GREEN, f"{config.ai_goals}")
     elif config.ai_name:
         logger.typewriter_log(
-            "Welcome back! ",
+            "欢迎回来！",
             Fore.GREEN,
-            f"Would you like me to return to being {config.ai_name}?",
+            f"您希望继续使用【 {config.ai_name}】?",
             speak_text=True,
         )
         should_continue = clean_input(
-            f"""Continue with the last settings?
-Name:  {config.ai_name}
-Role:  {config.ai_role}
-Goals: {config.ai_goals}
-Continue (y/n): """
+            f"""继续使用上次的设置吗?
+名字:  {config.ai_name}
+角色:  {config.ai_role}
+目标: {config.ai_goals}
+继续 (y/n): """
         )
         if should_continue.lower() == "n":
             config = AIConfig()

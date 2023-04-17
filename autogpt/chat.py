@@ -76,8 +76,8 @@ def chat_with_ai(
             model = cfg.fast_llm_model  # TODO: Change model from hardcode to argument
             # Reserve 1000 tokens for the response
 
-            logger.debug(f"Token limit: {token_limit}")
-            # logger.debug(f"prompt: {prompt}")
+            logger.debug(f"令牌限制: {token_limit}")
+            logger.debug(f"prompt: {prompt}")
             send_token_limit = token_limit - 1000
 
             relevant_memory = (
@@ -143,17 +143,17 @@ def chat_with_ai(
             #  https://www.github.com/Torantulino/Auto-GPT"
 
             # Debug print the current context
-            logger.debug(f"Token limit: {token_limit}")
-            logger.debug(f"Send Token Count: {current_tokens_used}")
-            logger.debug(f"Tokens remaining for response: {tokens_remaining}")
-            logger.debug("------------ CONTEXT SENT TO AI ---------------")
+            logger.debug(f"令牌限制: {token_limit}")
+            logger.debug(f"发送令牌数: {current_tokens_used}")
+            logger.debug(f"剩余用于回复的令牌数: {tokens_remaining}")
+            logger.debug("------------ 发送给人工智能的上下文 ---------------")
             for message in current_context:
                 # Skip printing the prompt
                 if message["role"] == "system" and message["content"] == prompt:
                     continue
                 logger.debug(f"{message['role'].capitalize()}: {message['content']}")
                 logger.debug("")
-            logger.debug("----------- END OF CONTEXT ----------------")
+            logger.debug("----------- 发送给人工智能的上下文-结束 ----------------")
 
             # TODO: use a model defined elsewhere, so that model can contain
             # temperature and other settings we care about

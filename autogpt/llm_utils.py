@@ -73,7 +73,7 @@ def create_chat_completion(
     if CFG.debug_mode:
         print(
             Fore.GREEN
-            + f"Creating chat completion with model {model}, temperature {temperature},"
+            + f"使用模型【{model}】对话, temperature {temperature},"
             f" max_tokens {max_tokens}" + Fore.RESET
         )
     for attempt in range(num_retries):
