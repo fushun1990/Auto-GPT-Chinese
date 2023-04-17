@@ -5,6 +5,12 @@
 
 **在此：先感谢[Auto-GPT](https://github.com/Significant-Gravitas/Auto-GPT) 项目的作者和团队**
 
+# 使用方式
+```python
+python -m autogpt --debug --gpt3only
+```
+更多的用法，请查看[Auto-GPT的【stable】分支](https://github.com/Significant-Gravitas/Auto-GPT/tree/stable) 的介绍
+
 # 中文响应的效果
 ## 设置名字角色目标
 ![](images/1.png)
