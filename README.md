@@ -1,7 +1,7 @@
 # Auto-GPT-Chinese
 项目的所有代码都是Auto-GPT的。这是修改了提示词为中文，让他查询google的时候可以查询中文网站的信息
 
-此项目的代码和每天与Auto-GPT同步，
+此项目的代码和每天与Auto-GPT同步，合并时间2023-04-17 23:00
 
 **在此：先感谢[Auto-GPT](https://github.com/Significant-Gravitas/Auto-GPT) 项目的作者和团队**
 
