@@ -1,5 +1,6 @@
-"""Setup the AI and its goals"""
+"""Set up the AI and its goals"""
 from colorama import Fore, Style
+
 from autogpt import utils
 from autogpt.config.ai_config import AIConfig
 from autogpt.logs import logger
@@ -16,7 +17,15 @@ def prompt_user() -> AIConfig:
     logger.typewriter_log(
         "欢迎使用Auto-GPT！",
         Fore.GREEN,
-        "在下方输入您的AI的名称和角色。不输入内容将加载默认值。",
+        "run with '--help' for more information.",
+        speak_text=True,
+    )
+
+    logger.typewriter_log(
+        "Create an AI-Assistant:",
+        Fore.GREEN,
+        "Enter the name of your AI and its role below. Entering nothing will load"
+        " defaults.",
         speak_text=True,
     )
 

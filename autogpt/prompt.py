@@ -1,9 +1,10 @@
 from colorama import Fore
+
+from autogpt.config import Config
 from autogpt.config.ai_config import AIConfig
 from autogpt.config.config import Config
 from autogpt.logs import logger
 from autogpt.promptgenerator import PromptGenerator
-from autogpt.config import Config
 from autogpt.setup import prompt_user
 from autogpt.utils import clean_input
 
@@ -39,6 +40,9 @@ def get_prompt() -> str:
     prompt_generator.add_constraint(
         '只使用双引号中列出的命令，例如："命令名称"'
     )
+    prompt_generator.add_constraint(
+        "Use subprocesses for commands that will not terminate within a few minutes"
+    )
 
     # Define the command list
     commands = [
@@ -70,7 +74,7 @@ def get_prompt() -> str:
         ("追加到文件", "append_to_file", {"file": "<file>", "text": "<text>"}),
         ("删除文件", "delete_file", {"file": "<file>"}),
         ("搜索文件", "search_files", {"directory": "<directory>"}),
-        ("评估代码", "evaluate_code", {"code": "<full_code_string>"}),
+        ("分析代码", "analyze_code", {"code": "<full_code_string>"}),
         (
             "获取改进后的代码。",
             "improve_code",
@@ -89,11 +93,7 @@ def get_prompt() -> str:
     # Only add the audio to text command if the model is specified
     if cfg.huggingface_audio_to_text_model:
         commands.append(
-            (
-                "将音频转换为文本",
-                "read_audio_from_file",
-                {"file": "<file>"}
-            ),
+            ("将音频转换为文本", "read_audio_from_file", {"file": "<file>"}),
         )
 
     # Only add shell command to the prompt if the AI is allowed to execute it
@@ -103,6 +103,23 @@ def get_prompt() -> str:
                 "执行 Shell 命令，仅限非交互式命令。",
                 "execute_shell",
                 {"command_line": "<command_line>"},
+            ),
+        )
+        commands.append(
+            (
+                "Execute Shell Command Popen, non-interactive commands only",
+                "execute_shell_popen",
+                {"command_line": "<command_line>"},
+            ),
+        )
+
+    # Only add the download file command if the AI is allowed to execute it
+    if cfg.allow_downloads:
+        commands.append(
+            (
+                "Downloads a file from the internet, and stores it locally",
+                "download_file",
+                {"url": "<file_url>", "file": "<saved_filename>"},
             ),
         )
 
