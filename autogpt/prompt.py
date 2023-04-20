@@ -35,13 +35,13 @@ def get_prompt() -> str:
     )
     prompt_generator.add_constraint("没有用户帮助")
     prompt_generator.add_constraint(
-        '不要回复除json以外的任何字符串'
+        '不要解释，只返回json格式的内容'
     )
     prompt_generator.add_constraint(
         '只使用双引号中列出的命令，例如："命令名称"'
     )
     prompt_generator.add_constraint(
-        "Use subprocesses for commands that will not terminate within a few minutes"
+        "对于执行时间超过几分钟的命令，请使用子进程。"
     )
 
     # Define the command list
@@ -107,7 +107,7 @@ def get_prompt() -> str:
         )
         commands.append(
             (
-                "Execute Shell Command Popen, non-interactive commands only",
+                "执行 Shell 命令 Popen，仅限非交互式命令。",
                 "execute_shell_popen",
                 {"command_line": "<command_line>"},
             ),
@@ -117,16 +117,16 @@ def get_prompt() -> str:
     if cfg.allow_downloads:
         commands.append(
             (
-                "Downloads a file from the internet, and stores it locally",
+                "从互联网下载文件，并将其存储在本地。",
                 "download_file",
                 {"url": "<file_url>", "file": "<saved_filename>"},
             ),
         )
 
     # Add these command last.
-    commands.append(
-        ("什么都不做", "do_nothing", {}),
-    )
+    # commands.append(
+    #     ("什么都不做", "do_nothing", {}),
+    # )
     commands.append(
         ("任务完成（关闭）", "task_complete", {"reason": "<reason>"}),
     )

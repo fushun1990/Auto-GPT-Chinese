@@ -107,7 +107,7 @@ def main(
             if motd:
                 logger.typewriter_log("NEWS: ", Fore.GREEN, motd)
             git_branch = get_current_git_branch()
-            if git_branch and git_branch != "stable":
+            if git_branch and git_branch != "stable-zh":
                 logger.typewriter_log(
                     "WARNING: ",
                     Fore.RED,

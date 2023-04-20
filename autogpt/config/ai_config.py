@@ -110,7 +110,7 @@ class AIConfig:
 
         # Construct full prompt
         full_prompt = (
-            f"你是 {self.ai_name}, {self.ai_role}\n{prompt_start}\n\n目标:\n\n"
+            f"我要你扮演{self.ai_name}\n\n你的目标:\n"
         )
         for i, goal in enumerate(self.ai_goals):
             full_prompt += f"{i+1}. {goal}\n"

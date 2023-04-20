@@ -17,15 +17,14 @@ def prompt_user() -> AIConfig:
     logger.typewriter_log(
         "欢迎使用Auto-GPT！",
         Fore.GREEN,
-        "run with '--help' for more information.",
+        "使用“python3.10 -m autogpt --help”获取更多信息。",
         speak_text=True,
     )
 
     logger.typewriter_log(
-        "Create an AI-Assistant:",
+        "创建一个人工智能助手:",
         Fore.GREEN,
-        "Enter the name of your AI and its role below. Entering nothing will load"
-        " defaults.",
+        "在下面输入您的人工智能的名称和角色。不输入任何内容将加载默认设置。",
         speak_text=True,
     )
 
@@ -42,14 +41,15 @@ def prompt_user() -> AIConfig:
     )
 
     # Get AI Role from User
-    logger.typewriter_log(
-        "描述您的AI的角色: ",
-        Fore.GREEN,
-        "默认，'一种旨在自主开发和经营企业，唯一目标是增加您的净资产的人工智能。'",
-    )
-    ai_role = utils.clean_input(f"{ai_name} is: ")
-    if ai_role == "":
-        ai_role = "一种旨在自主开发和经营企业，唯一目标是增加您的净资产的人工智能。"
+    ai_role = ""
+    # logger.typewriter_log(
+    #     "描述您的AI的角色: ",
+    #     Fore.GREEN,
+    #     "默认，'一种旨在自主开发和经营企业，唯一目标是增加您的净资产的人工智能。'",
+    # )
+    # ai_role = utils.clean_input(f"{ai_name} is: ")
+    # if ai_role == "":
+    #     ai_role = "一种旨在自主开发和经营企业，唯一目标是增加您的净资产的人工智能。"
 
     # Enter up to 5 goals for the AI
     logger.typewriter_log(
