@@ -130,8 +130,7 @@ def main(
         next_action_count = 0
         # Make a constant:
         triggering_prompt = (
-            "Determine which next command to use, and respond using the"
-            " format specified above:"
+            "确定使用哪个下一个命令，并使用上面指定的格式进行回应:"
         )
         # Initialize memory and make sure it is empty.
         # this is particularly important for indexing and referencing pinecone memory
