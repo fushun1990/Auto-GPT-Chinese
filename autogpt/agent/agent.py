@@ -1,3 +1,5 @@
+import json
+
 from colorama import Fore, Style
 
 from autogpt.app import execute_command, get_command
@@ -82,7 +84,6 @@ class Agent:
 
             assistant_reply_json = fix_json_using_multiple_techniques(assistant_reply)
 
-            # logger.typewriter_log('ai assistant_reply', assistant_reply_json)
             # Print Assistant thoughts
             if assistant_reply_json != {}:
                 validate_json(assistant_reply_json, "llm_response_format_1")

@@ -21,7 +21,7 @@ en_core_web_sm @ file:///您的项目绝对路径/Auto-GPT/localPackage/en_core_
 
 # 使用方式
 ```python
-python -m autogpt --debug --gpt3only
+python3.10 -m autogpt --debug --gpt3only
 ```
 更多的用法，请查看[Auto-GPT的【stable】分支](https://github.com/Significant-Gravitas/Auto-GPT/tree/stable) 的介绍
 
