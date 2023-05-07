@@ -1,12 +1,12 @@
 # Auto-GPT-Chinese
 项目的所有代码都是Auto-GPT的。这是修改了提示词为中文，让他查询google的时候可以查询中文网站的信息
 
-此项目的代码和每天与Auto-GPT的【stable】分支同步，合并时间2023-04-22 00:21。release:【Auto-GPT v0.2.2】
+此项目的代码和每天与Auto-GPT的【stable】分支同步，合并时间2023-05-08 00:21。release:【Auto-GPT v0.3.0】
 
 **在此：先感谢[Auto-GPT](https://github.com/Significant-Gravitas/Auto-GPT) 项目的作者和团队**
 
 # 注意事项
-## 1、必须使用python3.10及以上的版本
+## 1、必须使用python3.10及以上的版本。如果是conda环境。请查看下面的conda使用方式
 ```cmd
 pip3.10 install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
 ```
@@ -24,6 +24,31 @@ en_core_web_sm @ file:///您的项目绝对路径/Auto-GPT/localPackage/en_core_
 python3.10 -m autogpt --debug --gpt3only
 ```
 更多的用法，请查看[Auto-GPT的【stable】分支](https://github.com/Significant-Gravitas/Auto-GPT/tree/stable) 的介绍
+
+# 错误集
+## 1、assertion failed: encoder.len() == decoder.len()
+这个错误，我的解决办法是，手动安装【tiktoken】库。我本地安装就解决了。
+
+安装步骤
+- 1、下载tiktoken
+```text
+ git clone git@github.com:openai/tiktoken.git
+```
+- 2、先安装conda。并且【Auto-GTP】也需要在conda环境中执行。
+- 3、conda 创建环境，[其他命令](https://zhuanlan.zhihu.com/p/94744929)
+```text
+conda create -n Auto-GPT python=3.11
+```
+- 4、切换conda环境
+```text
+conda deactivate
+conda activate Auto-GPT
+```
+- 5、安装tiktoken
+``` python
+pip install setuptools_rust
+python setup.py build && python setup.py install && python setup.py develop -i https://mirrors.aliyun.com/pypi/simple/
+```
 
 # 中文响应的效果
 ## 设置名字角色目标
