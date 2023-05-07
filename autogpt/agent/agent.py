@@ -87,11 +87,11 @@ class Agent:
                 and loop_count > cfg.continuous_limit
             ):
                 logger.typewriter_log(
-                    "Continuous Limit Reached: ", Fore.YELLOW, f"{cfg.continuous_limit}"
+                    "已达到连续极限: ", Fore.YELLOW, f"{cfg.continuous_limit}"
                 )
                 break
             # Send message to AI, get response
-            with Spinner("Thinking... "):
+            with Spinner("思考... "):
                 assistant_reply = chat_with_ai(
                     self,
                     self.system_prompt,
@@ -130,30 +130,29 @@ class Agent:
                 # to exit
                 self.user_input = ""
                 logger.typewriter_log(
-                    "NEXT ACTION: ",
+                    "下一步行动: ",
                     Fore.CYAN,
-                    f"COMMAND = {Fore.CYAN}{command_name}{Style.RESET_ALL}  "
-                    f"ARGUMENTS = {Fore.CYAN}{arguments}{Style.RESET_ALL}",
+                    f"指令 = {Fore.CYAN}{command_name}{Style.RESET_ALL}  "
+                    f"参数 = {Fore.CYAN}{arguments}{Style.RESET_ALL}",
                 )
 
                 logger.info(
-                    "Enter 'y' to authorise command, 'y -N' to run N continuous commands, 's' to run self-feedback commands"
-                    "'n' to exit program, or enter feedback for "
+                    "输入“y”以授权命令，“y -N”以运行N个连续命令，“s”以运行自反馈命令，“n”以退出程序，或输入反馈 "
                     f"{self.ai_name}..."
                 )
                 while True:
                     if cfg.chat_messages_enabled:
-                        console_input = clean_input("Waiting for your response...")
+                        console_input = clean_input("等待您的回复...")
                     else:
                         console_input = clean_input(
                             Fore.MAGENTA + "Input:" + Style.RESET_ALL
                         )
                     if console_input.lower().strip() == cfg.authorise_key:
-                        user_input = "GENERATE NEXT COMMAND JSON"
+                        user_input = "生成下一个命令的JSON"
                         break
                     elif console_input.lower().strip() == "s":
                         logger.typewriter_log(
-                            "-=-=-=-=-=-=-= THOUGHTS, REASONING, PLAN AND CRITICISM WILL NOW BE VERIFIED BY AGENT -=-=-=-=-=-=-=",
+                            "-=-=-=-=-=-=-= 思考、推理、计划和批评现在将由代理进行验证 -=-=-=-=-=-=-=",
                             Fore.GREEN,
                             "",
                         )
@@ -162,17 +161,17 @@ class Agent:
                             thoughts, cfg.fast_llm_model
                         )
                         logger.typewriter_log(
-                            f"SELF FEEDBACK: {self_feedback_resp}",
+                            f"自反馈: {self_feedback_resp}",
                             Fore.YELLOW,
                             "",
                         )
                         if self_feedback_resp[0].lower().strip() == cfg.authorise_key:
-                            user_input = "GENERATE NEXT COMMAND JSON"
+                            user_input = "生成下一个命令的JSON"
                         else:
                             user_input = self_feedback_resp
                         break
                     elif console_input.lower().strip() == "":
-                        logger.warn("Invalid input format.")
+                        logger.warn("无效的输入格式。")
                         continue
                     elif console_input.lower().startswith(f"{cfg.authorise_key} -"):
                         try:
@@ -207,10 +206,10 @@ class Agent:
             else:
                 # Print command
                 logger.typewriter_log(
-                    "NEXT ACTION: ",
+                    "下一步行动: ",
                     Fore.CYAN,
-                    f"COMMAND = {Fore.CYAN}{command_name}{Style.RESET_ALL}"
-                    f"  ARGUMENTS = {Fore.CYAN}{arguments}{Style.RESET_ALL}",
+                    f"指令 = {Fore.CYAN}{command_name}{Style.RESET_ALL}"
+                    f"  参数 = {Fore.CYAN}{arguments}{Style.RESET_ALL}",
                 )
 
             # Execute command

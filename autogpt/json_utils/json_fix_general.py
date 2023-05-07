@@ -102,7 +102,7 @@ def correct_json(json_to_load: str) -> str:
         json.loads(json_to_load)
         return json_to_load
     except json.JSONDecodeError as e:
-        logger.debug("json loads error", e)
+        logger.debug("JSON加载错误，执行修复重新加载", e)
         error_message = str(e)
         if error_message.startswith("Invalid \\escape"):
             json_to_load = fix_invalid_escape(json_to_load, error_message)

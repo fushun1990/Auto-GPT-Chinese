@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import json
+
 import openai
 
 from autogpt.config import Config
@@ -59,7 +61,9 @@ class ApiManager(metaclass=Singleton):
                 max_tokens=max_tokens,
                 api_key=cfg.openai_api_key,
             )
-        logger.debug(f"\r\n响应: {response}\r\n\r\n")
+        logger.debug(f"\r\nchatGPT 回复：")
+        logger.debug(json.dumps(response, ensure_ascii=False))
+        logger.debug('\r\n\r\n')
         prompt_tokens = response.usage.prompt_tokens
         completion_tokens = response.usage.completion_tokens
         self.update_cost(prompt_tokens, completion_tokens, model)

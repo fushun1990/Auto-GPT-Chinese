@@ -30,7 +30,7 @@ CFG = Config()
 
 @command(
     "browse_website",
-    "Browse Website",
+    "浏览网站",
     '"url": "<url>", "question": "<what_you_want_to_find_on_website>"',
 )
 @validate_url

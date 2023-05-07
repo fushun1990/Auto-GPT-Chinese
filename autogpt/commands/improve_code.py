@@ -8,7 +8,7 @@ from autogpt.llm import call_ai_function
 
 @command(
     "improve_code",
-    "Get Improved Code",
+    "获取改进的代码",
     '"suggestions": "<list_of_suggestions>", "code": "<full_code_string>"',
 )
 def improve_code(suggestions: list[str], code: str) -> str:

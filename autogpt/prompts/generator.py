@@ -24,13 +24,13 @@ class PromptGenerator:
         self.role = "AI"
         self.response_format = {
             "thoughts": {
-                "text": "thought",
-                "reasoning": "reasoning",
-                "plan": "- short bulleted\n- list that conveys\n- long-term plan",
-                "criticism": "constructive self-criticism",
-                "speak": "thoughts summary to say to user",
+                "text": "思考",
+                "reasoning": "推理",
+                "plan": "- 简短的项目符号\n- 传达的清单\n- 长期计划",
+                "criticism": "建设性的自我批评",
+                "speak": "向用户总结的思考",
             },
-            "command": {"name": "command name", "args": {"arg name": "value"}},
+            "command": {"name": "task_complete", "args": {"arg name": "value"}},
         }
 
     def add_constraint(self, constraint: str) -> None:
@@ -141,7 +141,7 @@ class PromptGenerator:
         Returns:
             str: The generated prompt string.
         """
-        formatted_response_format = json.dumps(self.response_format, indent=4)
+        formatted_response_format = json.dumps(self.response_format, indent=4, ensure_ascii=False)
         return (
             f"约束条件:\n{self._generate_numbered_list(self.constraints)}\n\n"
             "命令:\n"

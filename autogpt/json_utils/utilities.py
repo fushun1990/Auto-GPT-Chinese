@@ -42,17 +42,17 @@ def validate_json(json_object: object, schema_name: str) -> dict | None:
     validator = Draft7Validator(schema)
 
     if errors := sorted(validator.iter_errors(json_object), key=lambda e: e.path):
-        logger.error("The JSON object is invalid.")
+        logger.error("该JSON对象是无效的。")
         if CFG.debug_mode:
             logger.error(
                 json.dumps(json_object, indent=4)
             )  # Replace 'json_object' with the variable containing the JSON data
-            logger.error("The following issues were found:")
+            logger.error("发现以下问题：")
 
             for error in errors:
                 logger.error(f"Error: {error.message}")
     else:
-        logger.debug("The JSON object is valid.")
+        logger.debug("\n该JSON对象是有效的。\n")
 
     return json_object
 

@@ -11,7 +11,7 @@ from autogpt.utils import clean_input
 CFG = Config()
 
 DEFAULT_TRIGGERING_PROMPT = (
-    "Determine which next command to use, and respond using the format specified above:"
+    "确定使用哪个下一个命令，并使用上述指定的格式进行响应："
 )
 
 
@@ -29,21 +29,19 @@ def build_default_prompt_generator() -> PromptGenerator:
 
     # Add constraints to the PromptGenerator object
     prompt_generator.add_constraint(
-        "~4000 word limit for short term memory. Your short term memory is short, so"
-        " immediately save important information to files."
+        "短期记忆限制为约4000个单词。由于您的短期记忆是短暂的，因此请立即将重要信息保存到文件中。"
     )
     prompt_generator.add_constraint(
-        "If you are unsure how you previously did something or want to recall past"
-        " events, thinking about similar events will help you remember."
+        "如果您不确定之前如何完成某件事，或想要回忆过去的事件，思考类似的事件会帮助您记忆。"
     )
-    prompt_generator.add_constraint("No user assistance")
+    prompt_generator.add_constraint("无用户协助")
     prompt_generator.add_constraint(
-        'Exclusively use the commands listed in double quotes e.g. "command name"'
+        '只使用下面列出的命令，例如：task_complete'
     )
 
     # Define the command list
     commands = [
-        ("Task Complete (Shutdown)", "task_complete", {"reason": "<reason>"}),
+        ("task_complete", "任务完成（关闭）", {"reason": "<reason>"}),
     ]
 
     # Add commands to the PromptGenerator object
@@ -52,30 +50,28 @@ def build_default_prompt_generator() -> PromptGenerator:
 
     # Add resources to the PromptGenerator object
     prompt_generator.add_resource(
-        "Internet access for searches and information gathering."
+        "可用于搜索和信息收集的互联网访问。"
     )
-    prompt_generator.add_resource("Long Term memory management.")
+    prompt_generator.add_resource("长期记忆管理。")
     prompt_generator.add_resource(
-        "GPT-3.5 powered Agents for delegation of simple tasks."
+        "使用GPT-3.5的代理来委派简单任务。"
     )
-    prompt_generator.add_resource("File output.")
+    prompt_generator.add_resource("文件输出。")
 
     # Add performance evaluations to the PromptGenerator object
     prompt_generator.add_performance_evaluation(
-        "Continuously review and analyze your actions to ensure you are performing to"
-        " the best of your abilities."
+        "持续审查和分析您的行动，确保您发挥出最佳的能力。"
     )
     prompt_generator.add_performance_evaluation(
-        "Constructively self-criticize your big-picture behavior constantly."
+        "不断地进行建设性自我批评，关注您的总体行为。"
     )
     prompt_generator.add_performance_evaluation(
-        "Reflect on past decisions and strategies to refine your approach."
+        "回顾过去的决策和策略，以优化您的方法。"
     )
     prompt_generator.add_performance_evaluation(
-        "Every command has a cost, so be smart and efficient. Aim to complete tasks in"
-        " the least number of steps."
+        "每个指令都有一个成本，因此要聪明高效。目标是用最少的步骤完成任务。"
     )
-    prompt_generator.add_performance_evaluation("Write all code to a file.")
+    prompt_generator.add_performance_evaluation("将所有代码写入文件中。")
     return prompt_generator
 
 

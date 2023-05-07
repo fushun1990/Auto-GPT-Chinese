@@ -8,7 +8,7 @@ from autogpt.commands.command import command
 
 @command(
     "send_tweet",
-    "Send Tweet",
+    "发送推文",
     '"tweet_text": "<tweet_text>"',
 )
 def send_tweet(tweet_text: str) -> str:
