@@ -1,21 +1,6 @@
-import unittest
+import tiktoken
+enc = tiktoken.get_encoding("cl100k_base")
+assert enc.decode(enc.encode("hello world")) == "hello world"
 
-import coverage
-
-if __name__ == "__main__":
-    # Start coverage collection
-    cov = coverage.Coverage()
-    cov.start()
-
-    # Load all tests from the 'autogpt/tests' package
-    suite = unittest.defaultTestLoader.discover("./tests")
-
-    # Run the tests
-    unittest.TextTestRunner().run(suite)
-
-    # Stop coverage collection
-    cov.stop()
-    cov.save()
-
-    # Report the coverage
-    cov.report(show_missing=True)
+# To get the tokeniser corresponding to a specific model in the OpenAI API:
+enc = tiktoken.encoding_for_model("gpt-4")

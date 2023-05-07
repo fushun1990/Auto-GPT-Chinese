@@ -1,4 +1,5 @@
 """Set up the AI and its goals"""
+import json
 import re
 
 from colorama import Fore, Style
@@ -31,23 +32,34 @@ def prompt_user() -> AIConfig:
 
     # Get user desire
     logger.typewriter_log(
-        "Create an AI-Assistant:",
+        "创建一个 AI 助手:",
         Fore.GREEN,
-        "input '--manual' to enter manual mode.",
+        "输入 '--manual' 以进入手动模式。",
+        speak_text=True,
+    )
+    logger.typewriter_log(
+        "【不输入】回车。则使用【默认】",
+        Fore.RED,
+    )
+
+    logger.typewriter_log(
+        "我想让 Auto-GPT（默认）:",
+        Fore.LIGHTBLUE_EX,
+        "编写一篇关于项目【https://github.com/significant-gravitas/Auto-GPT】维基百科风格的文章",
         speak_text=True,
     )
 
     user_desire = utils.clean_input(
-        f"{Fore.LIGHTBLUE_EX}I want Auto-GPT to{Style.RESET_ALL}: "
+        f"{Fore.LIGHTBLUE_EX}我想让 Auto-GPT{Style.RESET_ALL}: "
     )
 
     if user_desire == "":
-        user_desire = "Write a wikipedia style article about the project: https://github.com/significant-gravitas/Auto-GPT"  # Default prompt
+        user_desire = "编写一篇关于项目【https://github.com/significant-gravitas/Auto-GPT】维基百科风格的文章"  # Default prompt
 
     # If user desire contains "--manual"
     if "--manual" in user_desire:
         logger.typewriter_log(
-            "Manual Mode Selected",
+            "手动模式已选定。",
             Fore.GREEN,
             speak_text=True,
         )
@@ -58,9 +70,9 @@ def prompt_user() -> AIConfig:
             return generate_aiconfig_automatic(user_desire)
         except Exception as e:
             logger.typewriter_log(
-                "Unable to automatically generate AI Config based on user desire.",
+                "无法根据用户的愿望自动生成AI配置。",
                 Fore.RED,
-                "Falling back to manual mode.",
+                "回退到手动模式。",
                 speak_text=True,
             )
 
@@ -89,7 +101,7 @@ def generate_aiconfig_manual() -> AIConfig:
 
     # Get AI Name from User
     logger.typewriter_log(
-        "你的AI名字: ", Fore.GREEN, "默认，'企业家-GPT'"
+        "你的AI名字: ", Fore.GREEN, "默认：【企业家-GPT】"
     )
     ai_name = utils.clean_input("AI名字: ")
     if ai_name == "":
@@ -171,24 +183,24 @@ def generate_aiconfig_automatic(user_prompt) -> AIConfig:
     """
 
     system_prompt = """
-Your task is to devise up to 5 highly effective goals and an appropriate role-based name (_GPT) for an autonomous agent, ensuring that the goals are optimally aligned with the successful completion of its assigned task.
+您的任务是制定最多5个高效的目标和一个适当的基于角色的名称（_GPT）用于自主代理，确保这些目标与成功完成其分配任务的最佳对齐。
 
-The user will provide the task, you will provide only the output in the exact format specified below with no explanation or conversation.
+用户提供任务，您将仅按照下面指定的确切格式提供输出，不得进行任何解释或交谈。
 
-Example input:
-Help me with marketing my business
+输入示例:
+帮助我推广我的业务
 
-Example output:
+输出示例:
 Name: CMOGPT
-Description: a professional digital marketer AI that assists Solopreneurs in growing their businesses by providing world-class expertise in solving marketing problems for SaaS, content products, agencies, and more.
+Description: 一款专业的数字营销AI，为自由职业者提供世界一流的专业知识，解决SaaS、内容产品、代理商等各种营销问题，帮助他们发展业务。
 Goals:
-- Engage in effective problem-solving, prioritization, planning, and supporting execution to address your marketing needs as your virtual Chief Marketing Officer.
+- 作为您的虚拟首席营销官，参与有效的问题解决、优先级确定、规划和支持执行，以解决您的营销需求。
 
-- Provide specific, actionable, and concise advice to help you make informed decisions without the use of platitudes or overly wordy explanations.
+- 提供具体、可行和简洁的建议，帮助您做出明智的决策，而不使用陈词滥调或过于冗长的解释。
 
-- Identify and prioritize quick wins and cost-effective campaigns that maximize results with minimal time and budget investment.
+- 确定并优先考虑快速获胜和成本效益高的营销活动，最大化结果，同时最小化时间和预算投入。
 
-- Proactively take the lead in guiding you and offering suggestions when faced with unclear information or uncertainty to ensure your marketing strategy remains on track.
+- 主动引领您并在面对不明确的信息或不确定性时提供建议，确保您的营销策略保持在正确的轨道上。
 """
 
     # Call LLM with the string as user input
@@ -199,13 +211,14 @@ Goals:
         },
         {
             "role": "user",
-            "content": f"Task: '{user_prompt}'\nRespond only with the output in the exact format specified in the system prompt, with no explanation or conversation.\n",
+            "content": f"任务: '{user_prompt}'\n只用系统提示中指定的精确格式回复输出，不要进行解释或对话。\n",
         },
     ]
+    logger.debug(f"发送给chatGPT的内容:{json.dumps(messages, ensure_ascii=False)}")
     output = create_chat_completion(messages, CFG.fast_llm_model)
 
     # Debug LLM Output
-    logger.debug(f"AI Config Generator Raw Output: {output}")
+    logger.debug(f"\nAI配置生成器原始输出:\n {output}\n\n")
 
     # Parse the output
     ai_name = re.search(r"Name(?:\s*):(?:\s*)(.*)", output, re.IGNORECASE).group(1)

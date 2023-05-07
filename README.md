@@ -13,10 +13,10 @@ pip3.10 install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
 
 ## 2、替换【requirements.txt】中的内容
 ```text
-en_core_web_sm @ file:///Volumes/work/PycharmProjects/Auto-GPT/localPackage/en_core_web_sm-3.4.0-py3-none-any.whl
+en_core_web_sm @ file:///Volumes/work/PycharmProjects/Auto-GPT/localPackage/en_core_web_sm-3.5.0-py3-none-any.whl
 
 # 替换为
-en_core_web_sm @ file:///您的项目绝对路径/Auto-GPT/localPackage/en_core_web_sm-3.4.0-py3-none-any.whl
+en_core_web_sm @ file:///您的项目绝对路径/Auto-GPT/localPackage/en_core_web_sm-3.5.0-py3-none-any.whl
 ```
 
 # 使用方式

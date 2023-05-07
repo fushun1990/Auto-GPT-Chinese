@@ -59,7 +59,7 @@ class ApiManager(metaclass=Singleton):
                 max_tokens=max_tokens,
                 api_key=cfg.openai_api_key,
             )
-        logger.debug(f"Response: {response}")
+        logger.debug(f"\r\n响应: {response}\r\n\r\n")
         prompt_tokens = response.usage.prompt_tokens
         completion_tokens = response.usage.completion_tokens
         self.update_cost(prompt_tokens, completion_tokens, model)
@@ -80,7 +80,7 @@ class ApiManager(metaclass=Singleton):
             prompt_tokens * COSTS[model]["prompt"]
             + completion_tokens * COSTS[model]["completion"]
         ) / 1000
-        logger.debug(f"Total running cost: ${self.total_cost:.3f}")
+        logger.debug(f"【ChatGPT】总运行成本: ${self.total_cost:.3f}")
 
     def set_total_budget(self, total_budget):
         """

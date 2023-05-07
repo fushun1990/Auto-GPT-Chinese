@@ -18,7 +18,7 @@ def configure_logging():
             logging.StreamHandler(),
         ],
     )
-    return logging.getLogger("AutoGPT-Ingestion")
+    return logging.getLogger("AutoGPT-读取")
 
 
 def ingest_directory(directory, memory, args):
@@ -34,61 +34,59 @@ def ingest_directory(directory, memory, args):
         for file in files:
             ingest_file(file, memory, args.max_length, args.overlap)
     except Exception as e:
-        logger.error(f"Error while ingesting directory '{directory}': {str(e)}")
+        logger.error(f"读取目录时出错 '{directory}': {str(e)}")
 
 
 def main() -> None:
     logger = configure_logging()
 
     parser = argparse.ArgumentParser(
-        description="Ingest a file or a directory with multiple files into memory. "
-        "Make sure to set your .env before running this script."
+        description="将一个文件或一个包含多个文件的目录摄入到内存中。在运行此脚本之前，请确保设置了您的 .env 文件。"
     )
     group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument("--file", type=str, help="The file to ingest.")
+    group.add_argument("--file", type=str, help="要读取的文件。")
     group.add_argument(
-        "--dir", type=str, help="The directory containing the files to ingest."
+        "--dir", type=str, help="包含要读取的文件的目录。"
     )
     parser.add_argument(
         "--init",
         action="store_true",
-        help="Init the memory and wipe its content (default: False)",
+        help="初始化内存并清除其内容（默认值：False）",
         default=False,
     )
     parser.add_argument(
         "--overlap",
         type=int,
-        help="The overlap size between chunks when ingesting files (default: 200)",
+        help="读取文件时块之间的重叠大小（默认值：200）",
         default=200,
     )
     parser.add_argument(
         "--max_length",
         type=int,
-        help="The max_length of each chunk when ingesting files (default: 4000)",
+        help="读取文件时每个块的最大长度（默认值：4000）",
         default=4000,
     )
     args = parser.parse_args()
 
     # Initialize memory
     memory = get_memory(cfg, init=args.init)
-    logger.debug("Using memory of type: " + memory.__class__.__name__)
+    logger.debug("使用类型的内存: " + memory.__class__.__name__)
 
     if args.file:
         try:
             ingest_file(args.file, memory, args.max_length, args.overlap)
-            logger.info(f"File '{args.file}' ingested successfully.")
+            logger.info(f"'{args.file}' 文件成功读取。")
         except Exception as e:
-            logger.error(f"Error while ingesting file '{args.file}': {str(e)}")
+            logger.error(f"读取文件时出错 '{args.file}': {str(e)}")
     elif args.dir:
         try:
             ingest_directory(args.dir, memory, args)
-            logger.info(f"Directory '{args.dir}' ingested successfully.")
+            logger.info(f"'{args.dir}' 目录成功读取。")
         except Exception as e:
-            logger.error(f"Error while ingesting directory '{args.dir}': {str(e)}")
+            logger.error(f"读取目录时出错 '{args.dir}': {str(e)}")
     else:
         logger.warn(
-            "Please provide either a file path (--file) or a directory name (--dir)"
-            " inside the auto_gpt_workspace directory as input."
+            "请提供一个文件路径（--file）或一个目录名称（--dir）作为输入，位于 auto_gpt_workspace 目录中。"
         )
 
 

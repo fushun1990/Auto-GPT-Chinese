@@ -49,12 +49,12 @@ def clean_input(prompt: str = "", talk=False):
                 return plugin_response
 
         # ask for input, default when just pressing Enter is y
-        logger.info("Asking user via keyboard...")
+        logger.info("通过键盘询问用户...")
         answer = input(prompt)
         return answer
     except KeyboardInterrupt:
-        logger.info("You interrupted Auto-GPT")
-        logger.info("Quitting...")
+        logger.info("您中断了自动GPT")
+        logger.info("退出中...")
         exit(0)
 
 
@@ -89,7 +89,7 @@ def readable_file_size(size, decimal_places=2):
 def get_bulletin_from_web():
     try:
         response = requests.get(
-            "https://raw.githubusercontent.com/Significant-Gravitas/Auto-GPT/master/BULLETIN.md"
+            "https://gitee.com/fushun1990/auto-gpt-chinese/raw/stable-zh/BULLETIN.md"
         )
         if response.status_code == 200:
             return response.text
@@ -116,17 +116,16 @@ def get_latest_bulletin() -> tuple[str, bool]:
     new_bulletin = get_bulletin_from_web()
     is_new_news = new_bulletin != "" and new_bulletin != current_bulletin
 
-    news_header = Fore.YELLOW + "Welcome to Auto-GPT!\n"
+    news_header = Fore.YELLOW + "欢迎使用Auto-GPT！\n"
     if new_bulletin or current_bulletin:
         news_header += (
-            "Below you'll find the latest Auto-GPT News and updates regarding features!\n"
-            "If you don't wish to see this message, you "
-            "can run Auto-GPT with the *--skip-news* flag.\n"
+            "下面是有关Auto-GPT最新消息和功能更新的内容！\n"
+            "如果您不想看到此消息，可以使用*--skip-news*标志运行Auto-GPT。\n"
         )
 
     if new_bulletin and is_new_news:
         open("CURRENT_BULLETIN.md", "w", encoding="utf-8").write(new_bulletin)
-        current_bulletin = f"{Fore.RED}::NEW BULLETIN::{Fore.RESET}\n\n{new_bulletin}"
+        current_bulletin = f"{Fore.RED}::新公告::{Fore.RESET}\n\n{new_bulletin}"
 
     return f"{news_header}\n{current_bulletin}", is_new_news
 

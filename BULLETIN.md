@@ -1,24 +1,21 @@
-# Website and Documentation Site 📰📖
-Check out *https://agpt.co*, the official news & updates site for Auto-GPT!
-The documentation also has a place here, at *https://docs.agpt.co*
+# 网站和文档站 📰📖
+请查看 Auto-GPT 的官方新闻和更新网站 *https://agpt.co*！
+文档也可以在此处找到 *https://docs.agpt.co*。
 
-# 🚀 v0.3.0 Release 🚀
-Over a week and 275 pull requests have passed since v0.2.2, and we are happy to announce
-the release of v0.3.0! *From now on, we will be focusing on major improvements* rather
-than bugfixes, as we feel stability has reached a reasonable level. Most remaining
-issues relate to limitations in prompt generation and the memory system, which will be
-the focus of our efforts for the next release.
+# 🚀 v0.3.0 版本发布 🚀
+自 v0.2.2 发布以来，已经过去了一周和 275 个拉取请求，我们很高兴宣布发布 v0.3.0！从现在开始，我们将重点关注重大改进，
+而不是错误修复，因为我们认为稳定性已经达到了合理水平。大多数剩余的问题都与提示生成和内存系统的限制有关，
+这将是我们下一个版本的重点工作。
 
-Highlights and notable changes in this release:
+此版本的亮点和显着变化：
 
-## Plugin support 🔌
-Auto-GPT now has support for plugins! With plugins, you can extend Auto-GPT's abilities,
-adding support for third-party services and more.
-See https://github.com/Significant-Gravitas/Auto-GPT-Plugins for instructions and available plugins.
+## 插件支持 🔌
+Auto-GPT 现在支持插件！通过插件，您可以扩展 Auto-GPT 的功能，添加对第三方服务的支持等。
+请访问 https://github.com/Significant-Gravitas/Auto-GPT-Plugins 以获取说明和可用插件。
 
-## Changes to Docker configuration 🐋
-The workdir has been changed from */home/appuser* to */app*.
-Be sure to update any volume mounts accordingly!
+## Docker 配置更改 🐋
+工作目录已从 /home/appuser 更改为 /app。
+请确保相应地更新任何卷挂载！
 
-# ⚠️ Command `send_tweet` is DEPRECATED, and will be removed in v0.4.0 ⚠️
-Twitter functionality (and more) is now covered by plugins, see [Plugin support 🔌]
+# ⚠️ 命令 send_tweet 已过时，并将在 v0.4.0 中删除 ⚠️
+Twitter 功能（以及更多功能）现在由插件覆盖，请参见 [插件支持 🔌]。

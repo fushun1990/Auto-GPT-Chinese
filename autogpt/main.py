@@ -70,26 +70,22 @@ def run_auto_gpt(
                 input(
                     Fore.MAGENTA
                     + Style.BRIGHT
-                    + "NEWS: Bulletin was updated! Press Enter to continue..."
+                    + "NEWS: 公告已更新！按Enter键继续。..."
                     + Style.RESET_ALL
                 )
 
         git_branch = get_current_git_branch()
-        if git_branch and git_branch != "stable":
+        if git_branch and git_branch != "stable-zh":
             logger.typewriter_log(
-                "WARNING: ",
+                "警告: ",
                 Fore.RED,
-                f"You are running on `{git_branch}` branch "
-                "- this is not a supported branch.",
+                f"你正在运行稳定分支 `{git_branch}` - 这不是受支持的分支。",
             )
         if sys.version_info < (3, 10):
             logger.typewriter_log(
                 "WARNING: ",
                 Fore.RED,
-                "You are running on an older version of Python. "
-                "Some people have observed problems with certain "
-                "parts of Auto-GPT with this version. "
-                "Please consider upgrading to Python 3.10 or higher.",
+                "你正在使用较旧版本的Python。有些人在使用此版本时发现某些Auto-GPT功能存在问题。请考虑升级到Python 3.10或更高版本。",
             )
 
     if install_plugin_deps:
@@ -150,12 +146,12 @@ def run_auto_gpt(
     # this is particularly important for indexing and referencing pinecone memory
     memory = get_memory(cfg, init=True)
     logger.typewriter_log(
-        "Using memory of type:", Fore.GREEN, f"{memory.__class__.__name__}"
+        "使用类型的内存:", Fore.GREEN, f"{memory.__class__.__name__}"
     )
-    logger.typewriter_log("Using Browser:", Fore.GREEN, cfg.selenium_web_browser)
+    logger.typewriter_log("使用浏览器:", Fore.GREEN, cfg.selenium_web_browser)
     system_prompt = ai_config.construct_full_prompt()
-    if cfg.debug_mode:
-        logger.typewriter_log("Prompt:", Fore.GREEN, system_prompt)
+    # if cfg.debug_mode:
+    #     logger.typewriter_log("【chatGPT】系统提示词:", Fore.GREEN, system_prompt, "\n\n")
 
     agent = Agent(
         ai_name=ai_name,

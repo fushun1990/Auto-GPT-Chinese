@@ -144,13 +144,11 @@ class Logger(metaclass=Singleton):
     def double_check(self, additionalText=None):
         if not additionalText:
             additionalText = (
-                "Please ensure you've setup and configured everything"
-                " correctly. Read https://github.com/Torantulino/Auto-GPT#readme to "
-                "double check. You can also create a github issue or join the discord"
-                " and ask there!"
+                "请确保您已正确设置和配置所有内容。请阅读 https://github.com/Torantulino/Auto-GPT#readme 进行双重检查。"
+                "您也可以创建一个 GitHub 问题或加入 Discord 并在那里提问！"
             )
 
-        self.typewriter_log("DOUBLE CHECK CONFIGURATION", Fore.YELLOW, additionalText)
+        self.typewriter_log("请仔细检查配置", Fore.YELLOW, additionalText)
 
 
 """

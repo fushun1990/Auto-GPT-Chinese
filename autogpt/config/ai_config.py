@@ -153,14 +153,14 @@ class AIConfig:
                 else distro.name(pretty=True)
             )
 
-            prompt_start += f"\nThe OS you are running on is: {os_info}"
+            prompt_start += f"\n你正在使用的操作系统是: {os_info}"
 
         # Construct full prompt
-        full_prompt = f"You are {prompt_generator.name}, {prompt_generator.role}\n{prompt_start}\n\nGOALS:\n\n"
+        full_prompt = f"您是 {prompt_generator.name}, {prompt_generator.role}\n{prompt_start}\n\n目标:\n\n"
         for i, goal in enumerate(self.ai_goals):
             full_prompt += f"{i+1}. {goal}\n"
         if self.api_budget > 0.0:
-            full_prompt += f"\nIt takes money to let you run. Your API budget is ${self.api_budget:.3f}"
+            full_prompt += f"\n这需要您花费钱来运行。你的API预算是  ${self.api_budget:.3f}"
         self.prompt_generator = prompt_generator
         full_prompt += f"\n\n{prompt_generator.generate_prompt_string()}"
         return full_prompt

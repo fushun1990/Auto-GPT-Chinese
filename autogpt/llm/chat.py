@@ -87,7 +87,7 @@ def chat_with_ai(
             # Reserve 1000 tokens for the response
 
             logger.debug(f"令牌限制: {token_limit}")
-            logger.debug(f"prompt: {prompt}")
+            logger.debug(f"【chatGPT】提示词: {prompt}\n\n")
             send_token_limit = token_limit - 1000
 
             # if len(full_message_history) == 0:
@@ -102,7 +102,7 @@ def chat_with_ai(
             #         shuffle(relevant_memories)
             #     relevant_memory = str(relevant_memories)
             relevant_memory = ""
-            logger.debug(f"Memory Stats: {permanent_memory.get_stats()}")
+            logger.debug(f"Memory统计信息: {permanent_memory.get_stats()}")
 
             (
                 next_message_to_add_index,
@@ -180,13 +180,13 @@ def chat_with_ai(
                 if remaining_budget < 0:
                     remaining_budget = 0
                 system_message = (
-                    f"Your remaining API budget is ${remaining_budget:.3f}"
+                    f"您的剩余API预算为：${remaining_budget:.3f}"
                     + (
-                        " BUDGET EXCEEDED! SHUT DOWN!\n\n"
+                        " 预算超支！关闭！\n\n"
                         if remaining_budget == 0
-                        else " Budget very nearly exceeded! Shut down gracefully!\n\n"
+                        else " 预算几乎超支！优雅关闭！\n\n"
                         if remaining_budget < 0.005
-                        else " Budget nearly exceeded. Finish up.\n\n"
+                        else " 预算快要超支了。结束。\n\n"
                         if remaining_budget < 0.01
                         else "\n\n"
                     )
@@ -210,8 +210,8 @@ def chat_with_ai(
                     [create_chat_message("system", plugin_response)], model
                 )
                 if current_tokens_used + tokens_to_add > send_token_limit:
-                    logger.debug("Plugin response too long, skipping:", plugin_response)
-                    logger.debug("Plugins remaining at stop:", plugin_count - i)
+                    logger.debug("插件响应时间过长，跳过:", plugin_response)
+                    logger.debug("插件停留在停止状态：", plugin_count - i)
                     break
                 current_context.append(create_chat_message("system", plugin_response))
 
